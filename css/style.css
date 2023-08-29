@@ -1,0 +1,108 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+    
+}
+.dp-flex{
+    display: flex;
+}
+body{
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    color: white;
+}
+main{
+    flex-direction: column;
+    width: 400px;
+    padding: 25px;
+    background-color: rgb(48, 44, 44);
+}
+h2,h1,h3{
+    align-self: center;
+    margin-bottom: 25px;
+}
+label{
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 20px;
+}
+#inputs{
+    flex-direction: column;
+}
+
+.name-input, .peso-input{
+    flex-direction: column;
+}
+input{
+    padding: 10px 10px;
+    font-size: 18px;
+}
+#buttons{
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+button{
+    padding: 15px 20px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    width: 165px;
+    opacity: 0.9;
+}
+button:hover{
+    opacity: 1;
+}
+#calc-btn{
+    background-color: rgb(216, 52, 52);
+}
+#clean-btn{
+    background-color: rgb(87, 74, 74);
+}
+.IMC-sub, .IMC-data{
+    justify-content: space-between;
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+#imc-info{
+    color: #CCCCCC;
+}
+#back-btn{
+    align-self: center;
+    margin-top: 40px;
+    background-color: rgb(216, 52, 52);
+    width: 100px;
+}
+#results{
+    flex-direction: column;
+}
+.IMC-sub h4, .IMC-data p{
+    flex: 1;
+    text-align: center;
+}
+.IMC-sub h4:nth-child(3),
+.IMC-data p:nth-child(3){
+    max-width: 80px;
+}
+.hide{
+    display: none;
+}
+.good{
+    color: #00FE1E;
+}
+.attention{
+    color: #FFFB00;
+}
+.bad{
+    color: #FFAA01;
+}
+.extremely-bad{
+    color: #FF5E4C;
+}
