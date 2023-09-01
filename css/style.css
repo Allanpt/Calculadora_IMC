@@ -106,3 +106,16 @@ button:hover{
 .extremely-bad{
     color: #FF5E4C;
 }
+
+@media (max-width: 450px){
+    main{
+        width: 280px;
+    }
+    button {
+        font-size: 12px;
+        width: 100px;
+    }
+    h4,p{
+        font-size: 12px;
+    }
+}

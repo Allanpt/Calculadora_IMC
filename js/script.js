@@ -6,6 +6,7 @@ const data = [
       classification: "Menor que 16",
       info: "Magreza grave",
       obesity: "0",
+      clas: "extremely-bad",
     },
     {
       min: 16,
@@ -13,6 +14,7 @@ const data = [
       classification: "Entre 16 e 16,9",
       info: "Magreza moderada",
       obesity: "0",
+      clas: "bad",
     },
     {
       min: 17,
@@ -20,6 +22,7 @@ const data = [
       classification: "Entre 17 e 18,4",
       info: "Magreza",
       obesity: "0",
+      clas: "attention",
     },
     {
       min: 18.5,
@@ -27,6 +30,7 @@ const data = [
       classification: "Entre 18,5 e 24,9",
       info: "Normal",
       obesity: "0",
+      clas: "good",
     },
     {
       min: 25,
@@ -34,6 +38,7 @@ const data = [
       classification: "Entre 25,0 e 29,9",
       info: "Sobrepeso",
       obesity: "I",
+      clas: "attention",
     },
     {
       min: 30,
@@ -41,6 +46,7 @@ const data = [
       classification: "Entre 30,0 e 39,9",
       info: "Obesidade",
       obesity: "II",
+      clas: "bad",
     },
     {
       min: 40,
@@ -48,6 +54,7 @@ const data = [
       classification: "Maior que 40,0",
       info: "Obesidade grave",
       obesity: "III",
+      clas: "extremely-bad",
     },
   ];
 
@@ -65,6 +72,9 @@ const data = [
   const resultsDiv = document.querySelector('#results')
   const imcTable = document.querySelector('.imc-table')
 
+  const imcValueSpan = document.querySelector('#imc-value-span')
+  const imcInfoSpan = document.querySelector('#imc-info-span')
+  const backBtn = document.querySelector('#back-btn')
 
   //Funções
   function createTable(data){
@@ -90,29 +100,48 @@ const data = [
     imcTable.appendChild(div)
     });
   }
-  function showResults(){
+  
+  function validDigits(text){
+    return text.replace(/[^0-9,]/g,"")
+  }
+  function clear(){
+    alturaInput.value = ''
+    pesoInput.value = ''
+  }
+  function converterToNumber(alturaStringValue, pesoStringValue){
+    const alturaNumber = +alturaStringValue.replace(',','.')
+    const pesoNumber = +pesoStringValue.replace(',','.')
+    return [alturaNumber, pesoNumber]
+  }
+  function validator(temAltura, temPeso){
+    if(!temAltura || !temPeso) return alert("Preencha todos os campos")
+  }
+  function calcIMC(array){
+    const altura = array[0]
+    const peso = array[1]
 
-    const alturaValue = alturaInput.value;
-    const pesoValue = pesoInput.value;
+    return (peso / (altura * altura)).toFixed(1)
+  }
+  function showResults(imcValue, imcInfo){
 
-    validator(alturaValue, pesoValue)
+    imcValueSpan.innerHTML = imcValue
+    imcInfoSpan.innerHTML = imcInfo
+    let clas
+
+    data.forEach((item) => {
+      if(imcValue >= item.min && imcValue <= item.max){
+        clas = item.clas
+        imcValueSpan.classList.add(clas)
+        imcInfoSpan.classList.add(clas)
+      }
+    })
 
     h2Title.classList.add('hide')
     form.classList.add('hide')
     resultsDiv.classList.remove('hide')
     
   }
-  function validator(temAltura, temPeso){
-    if(!temAltura || !temPeso) return alert("Preencha todos os campos")
 
-  }
-  function validDigits(text){
-    return text.replace(/[^0-9]/g,"")
-  }
-  function clear(){
-    alturaInput.value = ''
-    pesoInput.value = ''
-  }
   //Inicialização
   createTable(data)
 
@@ -128,12 +157,42 @@ const data = [
     }
 
 
-  calcularBtn.addEventListener('click', () => {
-    showResults()
+  calcularBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    const alturaValue = alturaInput.value;
+    const pesoValue = pesoInput.value;
+
+    validator(alturaValue, pesoValue)
+
+    const alturaPeso = converterToNumber(alturaValue,pesoValue)
+    const imcValue = calcIMC(alturaPeso)
+
+    let info
+
+    data.forEach((item) => {
+      if(imcValue >= item.min && imcValue <= item.max){
+        info = item.info
+      }
+    })
+    
+    if(!info) return;
+    
+    showResults(imcValue,info)
   })
 
   limparBtn.addEventListener('click', (e) =>{
     e.preventDefault()
     clear()
   })
+
+  backBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    clear()
+    h2Title.classList.remove('hide')
+    form.classList.remove('hide')
+    resultsDiv.classList.add('hide')
+    imcValueSpan.classList = ''
+    imcInfoSpan.classList = ''
+
+  } )
 

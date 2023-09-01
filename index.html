@@ -20,12 +20,12 @@
         <form id="form">
             <section id="inputs" class="dp-flex">
                 <div class="name-input dp-flex">
-                    <label for="altura">Altura(cm):</label>
-                    <input id="altura" type="text" name="altura" placeholder="Exemplo: 175cm = 1,75m">
+                    <label for="altura">Altura(m):</label>
+                    <input id="altura" type="text" name="altura" placeholder="Exemplo: 1,75m" maxlength="4">
                 </div>
                 <div class="peso-input dp-flex">
                     <label for="peso">Peso(kg): </label>
-                    <input id="peso" type="text" name="peso" placeholder="Exemplo: 75">
+                    <input id="peso" type="text" name="peso" placeholder="Exemplo: 75" maxlength="4" >
                 </div>
             </section>
 
@@ -35,8 +35,8 @@
             </section>    
         </form>
         <div id="results" class="dp-flex hide">
-            <h1 id="imc-numer">Seu IMC: <span></span></h1>
-            <h3 id="imc-info">Situação atual: <span></span></h3>
+            <h1 id="imc-numer">Seu IMC: <span id="imc-value-span"></span></h1>
+            <h3 id="imc-info">Situação atual: <span id="imc-info-span"></span></h3>
             <h3>Confira as classificações</h3>
             <div class="IMC-sub dp-flex">
                 <h4>IMC</h4>
